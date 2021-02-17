@@ -1,0 +1,26 @@
+@import '../../SASS/Positions';
+
+#login-page{
+    width: 100%;
+    height: 100%;
+    .login-container{
+        @include absoluteCentered();
+        .header{
+            width: 300px;
+            height: 100px;
+            margin: auto;
+            img{
+                width: 100%;
+                height: 100%;
+            }
+        }
+        .login-form, .signUp-form{
+            p{
+                &:hover{
+                    cursor: pointer;
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
+}
