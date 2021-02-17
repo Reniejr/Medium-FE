@@ -14,9 +14,18 @@ import {
   IoSearchOutline,
 } from "react-icons/io5";
 import { Link, withRouter } from "react-router-dom";
+
+//REDUX IMPORTS
+import { connect } from "react-redux";
+
+//REDUX
+const mapStateToProps = (state) => state;
+
+const mapDispatchToProps = (dispatch) => ({});
+
 class NavBar extends Component {
   render() {
-    console.log(this.props);
+    // console.log(this.props);
     return (
       <Navbar
         style={{
@@ -65,6 +74,9 @@ class NavBar extends Component {
                   <Dropdown.Item as={Link} to="/stats">
                     Stats
                   </Dropdown.Item>
+                  <Dropdown.Item onClick={this.props.showModal}>
+                    Logout
+                  </Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
             </Nav>
@@ -74,4 +86,4 @@ class NavBar extends Component {
     );
   }
 }
-export default withRouter(NavBar);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(NavBar));

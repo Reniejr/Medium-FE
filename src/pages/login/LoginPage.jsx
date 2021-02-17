@@ -52,16 +52,12 @@ export default function LoginPage() {
   const signUpFunc = async () => {
     await fetchPostUser(signUp);
     const tokens = await fetchGetTokens(signUp.username, signUp.password);
-    const user = await fetchGetUser(tokens.access_token);
-    await dispatch(setUser(user));
     await dispatch(setTokens(tokens));
     await history.push("/home");
   };
 
   const loginFunc = async () => {
     const tokens = await fetchGetTokens(login.username, login.password);
-    const user = await fetchGetUser(tokens.access_token);
-    await dispatch(setUser(user));
     await dispatch(setTokens(tokens));
     await history.push("/home");
   };

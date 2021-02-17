@@ -1,4 +1,13 @@
 import React, { Component } from "react";
+
+//REDUX IMPORTS
+import { connect } from "react-redux";
+import { setUser } from "../../Store/User/actions";
+import { setTokens } from "../../Store/Tokens/actions";
+
+//UTILITIES IMPORTS
+import { fetchGetUser } from "./utilities";
+
 import { Col, Container, Row } from "react-bootstrap";
 import { IoBookmarksOutline } from "react-icons/io5";
 import ArticleListItem from "../../components/ArticleListItem/ArticleListItem";
@@ -8,11 +17,23 @@ import TopicsToFollow from "../../components/TopicsToFollow/TopicsToFollow";
 import articles from "./articles.json";
 import "./styles.scss";
 
+//REDUX
+const mapStateToProps = (state) => state;
 
-export default class Home extends Component {
+const mapDispatchToProps = (dispatch) => ({
+  storeUser: (user) => dispatch(setUser(user)),
+});
+
+class Home extends Component {
   state = {
     articles: articles,
   };
+
+  componentDidMount = async () => {
+    const user = await fetchGetUser(this.props.tokens.access_token);
+    await this.props.storeUser(user);
+  };
+
   render() {
     return (
       <div>
@@ -42,7 +63,7 @@ export default class Home extends Component {
 
             <Col>
               <PeopleList />
-              <TopicsToFollow/>
+              <TopicsToFollow />
             </Col>
             <Col className={""}>{/*<TagsList />*/}</Col>
           </Row>
@@ -79,3 +100,4 @@ export default class Home extends Component {
     );
   }
 }
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
